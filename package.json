@@ -12,6 +12,8 @@
     "babel-preset-env": "^1.7.0",
     "eslint": "^5.10.0",
     "eslint-plugin-jest": "^22.1.2",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "jest-plugin-context": "^2.9.0",
+    "jsdom": "^13.1.0"
   }
 }
