@@ -7,10 +7,23 @@ describe('HttpFactoryServer', () => {
   describe('REQUEST_EVENT_TYPE', () => {
     let subject = () => {
       return HttpFactoryServer.REQUEST_EVENT_TYPE;
-    }
+    };
 
     test("that it returns http-factory-request", () => {
       expect(subject()).toBe('http-factory-request');
+    })
+  })
+
+  describe('baseURL', () => {
+    let subject = () => {
+      return server.baseURL;
+    };
+
+    let baseURL = 'http://localhost:3000/';
+    let server = new HttpFactoryServer(baseURL);
+
+    test('it should return the baseURL', () => {
+      expect(subject()).toBe(baseURL);
     })
   })
 
@@ -59,7 +72,35 @@ describe('HttpFactoryServer', () => {
         );
       })
     })
-
   })
+
+  describe('_handleRequestEvent', () => {
+    let subject = () => {
+      document.dispatchEvent(requestEvent);
+    };
+
+    let requestDetails = 'fakeRequestDetails';
+    let fakeRequest = 'fakeRequest';
+    let requestEvent = new CustomEvent(
+      HttpFactoryServer.REQUEST_EVENT_TYPE, {
+        bubble: true,
+        detail: {
+          requestDetails: requestDetails
+        }
+      }
+    )
+
+    beforeEach(() => {
+      let server = new HttpFactoryServer;
+      server.bindTo();
+      server.buildRequest = jest.fn(() => fakeRequest)
+    })
+
+    test('that it should insert the output of buildRequest in request detail', () => {
+      subject()
+      expect(requestEvent.detail.request).toBe(fakeRequest);
+    })
+  })
+
 })
 
