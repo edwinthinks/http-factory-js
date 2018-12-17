@@ -1,4 +1,4 @@
-import buildUrl from 'build-url';
+const url = require('url');
 
 class HttpFactoryServer {
 
@@ -24,12 +24,19 @@ class HttpFactoryServer {
   buildRequest(requestDetails) {
     let requestData = Object.assign(requestDetails, this.options);
 
-    let url = buildUrl(this.baseURL, {
-      path: requestDetails.path,
-      queryParams: requestDetails.queryParams
-    })
+    let pathURL = this._buildPathURL(requestData.path, requestData.queryParams);
 
-    return fetch(url, requestData).then(res => res.json())
+    return fetch(pathURL.href, requestData).then(res => res.json())
+  }
+
+  _buildPathURL(path, queryParams = {}) {
+    let pathURL = new URL(path, this.baseURL);
+
+    for (var key in queryParams) {
+      pathURL.searchParams.set(key, queryParams[key]);
+    }
+
+    return pathURL;
   }
 
   _handleRequestEvent(event) {

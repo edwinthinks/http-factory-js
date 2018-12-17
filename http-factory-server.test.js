@@ -19,7 +19,7 @@ describe('HttpFactoryServer', () => {
       return server.baseURL;
     };
 
-    let baseURL = 'http://localhost:3000/';
+    let baseURL = 'http://localhost:3000';
     let server = new HttpFactoryServer(baseURL);
 
     test('it should return the baseURL', () => {
@@ -33,7 +33,7 @@ describe('HttpFactoryServer', () => {
     };
 
     let server;
-    let baseURL = 'http://fake-api-server.com/';
+    let baseURL = 'http://fake-api-server.com';
     let serverOpts = {
       mode: "cors",
       cache: "no-cache",
@@ -62,7 +62,7 @@ describe('HttpFactoryServer', () => {
 
       test('it should return a build the GET fetch request', () => {
         expect(fetch).toHaveBeenCalledWith(
-          baseURL + requestDetails.path + '?foo=bar',
+          baseURL + '/' + requestDetails.path + '?foo=bar',
           Object.assign(requestDetails, serverOpts)
         )
       })
@@ -77,7 +77,7 @@ describe('HttpFactoryServer', () => {
 
       test('it should return a build the POST fetch request', () => {
         expect(fetch).toHaveBeenCalledWith(
-          baseURL + requestDetails.path,
+          baseURL + '/' + requestDetails.path,
           Object.assign(requestDetails, serverOpts)
         )
       })
@@ -92,7 +92,7 @@ describe('HttpFactoryServer', () => {
 
       test('it should return a build the PUT fetch request', () => {
         expect(fetch).toHaveBeenCalledWith(
-          baseURL + requestDetails.path,
+          baseURL + '/' + requestDetails.path,
           Object.assign(requestDetails, serverOpts)
         )
       })
@@ -106,7 +106,7 @@ describe('HttpFactoryServer', () => {
 
       test('it should return a build the DELETE fetch request', () => {
         expect(fetch).toHaveBeenCalledWith(
-          baseURL + requestDetails.path,
+          baseURL + '/' + requestDetails.path,
           Object.assign(requestDetails, serverOpts)
         );
       })
@@ -121,7 +121,7 @@ describe('HttpFactoryServer', () => {
 
       test('it should return a build the PATCH fetch request', () => {
         expect(fetch).toHaveBeenCalledWith(
-          baseURL + requestDetails.path,
+          baseURL + '/' + requestDetails.path,
           Object.assign(requestDetails, serverOpts)
         );
       })
@@ -172,34 +172,6 @@ describe('HttpFactoryServer', () => {
           server._handleRequestEvent
         );
       })
-    })
-  })
-
-  describe('_handleRequestEvent', () => {
-    let subject = () => {
-      document.dispatchEvent(requestEvent);
-    };
-
-    let requestDetails = 'fakeRequestDetails';
-    let fakeRequest = 'fakeRequest';
-    let requestEvent = new CustomEvent(
-      HttpFactoryServer.REQUEST_EVENT_TYPE, {
-        bubble: true,
-        detail: {
-          requestDetails: requestDetails
-        }
-      }
-    )
-
-    beforeEach(() => {
-      let server = new HttpFactoryServer;
-      server.bindTo();
-      server.buildRequest = jest.fn(() => fakeRequest)
-    })
-
-    test('that it should insert the output of buildRequest in request detail', () => {
-      subject()
-      expect(requestEvent.detail.request).toBe(fakeRequest);
     })
   })
 
