@@ -1,18 +1,9 @@
 import { HttpFactoryServer } from './http-factory-server.js'
+import { REQUEST_EVENT_TYPE } from './http-factory-constants.js'
 import context from 'jest-plugin-context';
 const { JSDOM } = require('jsdom');
 
 describe('HttpFactoryServer', () => {
-
-  describe('REQUEST_EVENT_TYPE', () => {
-    let subject = () => {
-      return HttpFactoryServer.REQUEST_EVENT_TYPE;
-    };
-
-    test("that it returns http-factory-request", () => {
-      expect(subject()).toBe('http-factory-request');
-    })
-  })
 
   describe('baseURL', () => {
     let subject = () => {
@@ -151,7 +142,7 @@ describe('HttpFactoryServer', () => {
       test('it will add event listener on the element', () => {
         subject()
         expect(spy).toHaveBeenCalledWith(
-          HttpFactoryServer.REQUEST_EVENT_TYPE,
+          REQUEST_EVENT_TYPE,
           server._handleRequestEvent
         );
       })
@@ -168,7 +159,7 @@ describe('HttpFactoryServer', () => {
       test('it will add event listener on the document', () => {
         subject()
         expect(spy).toHaveBeenCalledWith(
-          HttpFactoryServer.REQUEST_EVENT_TYPE,
+          REQUEST_EVENT_TYPE,
           server._handleRequestEvent
         );
       })

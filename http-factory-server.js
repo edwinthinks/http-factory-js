@@ -1,3 +1,5 @@
+import { REQUEST_EVENT_TYPE } from './http-factory-constants.js'
+
 export class HttpFactoryServer {
 
   constructor(baseURL, options = {}) {
@@ -8,13 +10,11 @@ export class HttpFactoryServer {
     this.buildRequest = this.buildRequest.bind(this);
   }
 
-  static get REQUEST_EVENT_TYPE() {
-    return 'http-factory-request';
-  }
+
 
   bindTo(element = document) {
     element.addEventListener(
-      this.constructor.REQUEST_EVENT_TYPE,
+      REQUEST_EVENT_TYPE,
       this._handleRequestEvent
     )
   }
@@ -46,9 +46,9 @@ export class HttpFactoryServer {
 
   _isJSONString(str) {
     try {
-        JSON.parse(str);
+      JSON.parse(str);
     } catch (e) {
-        return false;
+      return false;
     }
 
     return true;

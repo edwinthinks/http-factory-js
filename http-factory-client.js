@@ -1,4 +1,4 @@
-import { HttpFactoryServer } from './http-factory-server.js'
+import { REQUEST_EVENT_TYPE } from './http-factory-constants.js'
 
 export class HttpFactoryClient {
 
@@ -51,7 +51,7 @@ export class HttpFactoryClient {
     );
 
     return new CustomEvent(
-      HttpFactoryServer.REQUEST_EVENT_TYPE,
+      REQUEST_EVENT_TYPE,
       {
         bubbles: true,
         composed: true,

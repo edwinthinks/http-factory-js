@@ -1,5 +1,5 @@
 import { HttpFactoryClient } from './http-factory-client.js'
-import { HttpFactoryServer } from './http-factory-server.js'
+import { REQUEST_EVENT_TYPE } from './http-factory-constants.js'
 
 describe('HttpFactoryClient', () => {
 
@@ -46,7 +46,7 @@ describe('HttpFactoryClient', () => {
 
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
-      expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
+      expect(capturedEvent.type).toBe(REQUEST_EVENT_TYPE);
       expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'GET',
         path: fakePath,
@@ -81,7 +81,7 @@ describe('HttpFactoryClient', () => {
 
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
-      expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
+      expect(capturedEvent.type).toBe(REQUEST_EVENT_TYPE);
       expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'POST',
         path: fakePath,
@@ -116,7 +116,7 @@ describe('HttpFactoryClient', () => {
 
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
-      expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
+      expect(capturedEvent.type).toBe(REQUEST_EVENT_TYPE);
       expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'PUT',
         path: fakePath,
@@ -151,7 +151,7 @@ describe('HttpFactoryClient', () => {
 
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
-      expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
+      expect(capturedEvent.type).toBe(REQUEST_EVENT_TYPE);
       expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'PATCH',
         path: fakePath,
@@ -186,7 +186,7 @@ describe('HttpFactoryClient', () => {
 
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
-      expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
+      expect(capturedEvent.type).toBe(REQUEST_EVENT_TYPE);
       expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'DELETE',
         path: fakePath
