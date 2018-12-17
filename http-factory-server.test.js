@@ -29,7 +29,7 @@ describe('HttpFactoryServer', () => {
 
   describe('buildRequest', () => {
     let subject = () => {
-      return server.buildRequest(requestDetails);
+      server.buildRequest(requestDetails).then(() => {});
     };
 
     let server;
@@ -57,7 +57,7 @@ describe('HttpFactoryServer', () => {
       beforeEach(() => {
         requestDetails.method = 'GET';
         requestDetails.queryParams = { foo: 'bar' };
-        subject().then(() => {});
+        subject();
       })
 
       test('it should return a build the GET fetch request', () => {
@@ -72,11 +72,10 @@ describe('HttpFactoryServer', () => {
       beforeEach(() => {
         requestDetails.method = 'POST';
         requestDetails.body = JSON.stringify({fakeData: 5});
+        subject();
       })
 
       test('it should return a build the POST fetch request', () => {
-        subject().then(() => {});
-
         expect(fetch).toHaveBeenCalledWith(
           baseURL + requestDetails.path,
           Object.assign(requestDetails, serverOpts)
@@ -88,11 +87,10 @@ describe('HttpFactoryServer', () => {
       beforeEach(() => {
         requestDetails.method = 'PUT';
         requestDetails.body = JSON.stringify({fakeData: 5});
+        subject();
       })
 
       test('it should return a build the PUT fetch request', () => {
-        subject().then(() => {});
-
         expect(fetch).toHaveBeenCalledWith(
           baseURL + requestDetails.path,
           Object.assign(requestDetails, serverOpts)
@@ -103,11 +101,10 @@ describe('HttpFactoryServer', () => {
     context('when the request details a DELETE', () => {
       beforeEach(() => {
         requestDetails.method = 'DELETE';
+        subject();
       })
 
       test('it should return a build the DELETE fetch request', () => {
-        subject().then(() => {});
-
         expect(fetch).toHaveBeenCalledWith(
           baseURL + requestDetails.path,
           Object.assign(requestDetails, serverOpts)
@@ -119,11 +116,10 @@ describe('HttpFactoryServer', () => {
       beforeEach(() => {
         requestDetails.method = 'PATCH';
         requestDetails.body = JSON.stringify({fakeData: 5});
+        subject();
       })
 
       test('it should return a build the PATCH fetch request', () => {
-        subject().then(() => {});
-
         expect(fetch).toHaveBeenCalledWith(
           baseURL + requestDetails.path,
           Object.assign(requestDetails, serverOpts)
