@@ -1,3 +1,5 @@
+import buildUrl from 'build-url';
+
 class HttpFactoryServer {
 
   constructor(baseURL, options = {}) {
@@ -20,15 +22,14 @@ class HttpFactoryServer {
   }
 
   buildRequest(requestDetails) {
-    return fetch(this.baseURL, {
-      method: requestDetails.method,
-      mode: "cors", // no-cors, cors, *same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      }
+    let requestData = Object.assign(requestDetails, this.options);
+
+    let url = buildUrl(this.baseURL, {
+      path: requestDetails.path,
+      queryParams: requestDetails.queryParams
     })
+
+    return fetch(url, requestData).then(res => res.json())
   }
 
   _handleRequestEvent(event) {
