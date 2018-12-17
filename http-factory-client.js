@@ -1,6 +1,6 @@
-import HttpFactoryServer from './http-factory-server'
+import { HttpFactoryServer } from './http-factory-server.js'
 
-class HttpFactoryClient {
+export class HttpFactoryClient {
 
   constructor(target = document) {
     this.target = target;
@@ -42,7 +42,7 @@ class HttpFactoryClient {
   }
 
   _constructEvent(method, path, options) {
-    let requestDetail = Object.assign(
+    let requestDetails = Object.assign(
       {
         method: method,
         path: path
@@ -56,11 +56,10 @@ class HttpFactoryClient {
         bubbles: true,
         composed: true,
         detail: {
-          requestDetail: requestDetail
+          requestDetails: requestDetails
         }
       }
     )
   }
 }
 
-export default HttpFactoryClient;

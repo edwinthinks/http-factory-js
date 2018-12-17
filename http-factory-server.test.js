@@ -1,4 +1,4 @@
-import HttpFactoryServer from './http-factory-server.js'
+import { HttpFactoryServer } from './http-factory-server.js'
 import context from 'jest-plugin-context';
 const { JSDOM } = require('jsdom');
 

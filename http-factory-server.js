@@ -1,6 +1,4 @@
-const url = require('url');
-
-class HttpFactoryServer {
+export class HttpFactoryServer {
 
   constructor(baseURL, options = {}) {
     this.baseURL = baseURL;
@@ -21,8 +19,15 @@ class HttpFactoryServer {
     )
   }
 
-  buildRequest(requestDetails) {
-    let requestData = Object.assign(requestDetails, this.options);
+  buildRequest(requestDetails = {}) {
+    let requestData = {
+      ...requestDetails,
+      ...this.options
+    };
+
+    if (requestData.body && !this._isJSONString(requestData.body)) {
+      requestData.body = JSON.stringify(requestData.body);
+    }
 
     let pathURL = this._buildPathURL(requestData.path, requestData.queryParams);
 
@@ -39,11 +44,19 @@ class HttpFactoryServer {
     return pathURL;
   }
 
+  _isJSONString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+
+    return true;
+  }
+
   _handleRequestEvent(event) {
     let requestDetails = event.detail.requestDetails;
     event.detail.request = this.buildRequest(requestDetails);
   }
-
 }
 
-export default HttpFactoryServer;

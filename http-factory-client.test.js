@@ -1,5 +1,5 @@
-import HttpFactoryClient from './http-factory-client.js'
-import HttpFactoryServer from './http-factory-server'
+import { HttpFactoryClient } from './http-factory-client.js'
+import { HttpFactoryServer } from './http-factory-server.js'
 
 describe('HttpFactoryClient', () => {
 
@@ -35,7 +35,7 @@ describe('HttpFactoryClient', () => {
 
     test('that it fetches the expected data', () => {
       return subject().then((data) => {
-        expect(data).toMatchObject(mockResponseBody);
+        expect(data).toEqual(mockResponseBody);
       })
     });
 
@@ -47,7 +47,7 @@ describe('HttpFactoryClient', () => {
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
       expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
-      expect(capturedEvent.detail.requestDetail).toMatchObject({
+      expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'GET',
         path: fakePath,
         queryParams: queryParams
@@ -70,7 +70,7 @@ describe('HttpFactoryClient', () => {
 
     test('that it fetches the expected data', () => {
       return subject().then((data) => {
-        expect(data).toMatchObject(mockResponseBody);
+        expect(data).toEqual(mockResponseBody);
       })
     });
 
@@ -82,7 +82,7 @@ describe('HttpFactoryClient', () => {
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
       expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
-      expect(capturedEvent.detail.requestDetail).toMatchObject({
+      expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'POST',
         path: fakePath,
         body: body
@@ -105,7 +105,7 @@ describe('HttpFactoryClient', () => {
 
     test('that it fetches the expected data', () => {
       return subject().then((data) => {
-        expect(data).toMatchObject(mockResponseBody);
+        expect(data).toEqual(mockResponseBody);
       })
     });
 
@@ -117,7 +117,7 @@ describe('HttpFactoryClient', () => {
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
       expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
-      expect(capturedEvent.detail.requestDetail).toMatchObject({
+      expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'PUT',
         path: fakePath,
         body: body
@@ -140,7 +140,7 @@ describe('HttpFactoryClient', () => {
 
     test('that it fetches the expected data', () => {
       return subject().then((data) => {
-        expect(data).toMatchObject(mockResponseBody);
+        expect(data).toEqual(mockResponseBody);
       })
     });
 
@@ -152,7 +152,7 @@ describe('HttpFactoryClient', () => {
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
       expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
-      expect(capturedEvent.detail.requestDetail).toMatchObject({
+      expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'PATCH',
         path: fakePath,
         body: body
@@ -175,7 +175,7 @@ describe('HttpFactoryClient', () => {
 
     test('that it fetches the expected data', () => {
       return subject().then((data) => {
-        expect(data).toMatchObject(mockResponseBody);
+        expect(data).toEqual(mockResponseBody);
       })
     });
 
@@ -187,7 +187,7 @@ describe('HttpFactoryClient', () => {
       let capturedEvent = mockServerResponse.mock.calls[0][0];
 
       expect(capturedEvent.type).toBe(HttpFactoryServer.REQUEST_EVENT_TYPE);
-      expect(capturedEvent.detail.requestDetail).toMatchObject({
+      expect(capturedEvent.detail.requestDetails).toMatchObject({
         method: 'DELETE',
         path: fakePath
       })

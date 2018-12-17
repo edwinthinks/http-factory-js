@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <style>
+       pre {
+         height: 250px;
+         white-space: pre-wrap;
+       }
+    </style>
+
+    <title>HTTP Factory Demo</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.1/examples/floating-labels/floating-labels.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="form-signin">
+      <h3 id='joke'></h3>
+      <button class="btn btn-lg btn-primary btn-block">Get Random Dad Joke</button>
+    </div>
+  </body>
+
+  <script type='module'>
+     import { HttpFactoryClient } from './http-factory-client.js'
+     import { HttpFactoryServer } from './http-factory-server.js'
+
+     let dadJokeApiBaseURL = 'https://icanhazdadjoke.com';
+     let httpFactory = new HttpFactoryServer(
+      dadJokeApiBaseURL,
+      {
+        headers: { "Accept": "application/json"}
+      }
+     );
+
+     httpFactory.bindTo(document);
+
+     let httpClient = new HttpFactoryClient();
+     document.getElementsByTagName('button')[0].addEventListener('click', function() {
+       httpClient.get('').then((res) => {
+         document.getElementById('joke').innerHTML = res.joke;
+       })
+     })
+
+  </script>
+</html>
+
